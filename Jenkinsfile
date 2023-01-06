@@ -15,6 +15,7 @@ pipeline {
                 //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
                 
                 // To run Maven on a Windows agent, use
+				echo 'Building....'
                 bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
 
@@ -22,13 +23,10 @@ pipeline {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    junit{
-                            
-                            testResults: '*/test-reports/.xml'
-                }
-            }
-        }
-    }
+                    echo 'Successfully Build'
+            	}
+        	}
+    	}
 	}
 
 }
