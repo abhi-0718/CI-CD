@@ -8,7 +8,6 @@ pipeline {
         maven "Maven"
         git "Git"
         jdk "Jdk"
-        docker "docker"
     }
 
     stages {
