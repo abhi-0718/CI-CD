@@ -1,14 +1,28 @@
-pipeline{
-      agent any 
-	tools{
-                maven 'Maven'
-		jdk 'Jdk'
+pipeline {
+    agent any
+    tools {
+        maven "Maven"
+        jdk "Jdk"
+    }
+    stages {
+        stage('Initialize'){
+            steps{
+                echo "PATH = ${M2_HOME}/bin:${PATH}"
+                echo "M2_HOME = /opt/maven"
             }
-	stage{
-		steps{
-			sh 'mvn -B -DskipTests clean package'
-		}
-	}
-        
-               	     	         
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+            }
+        }
+     }
+    post {
+       always {
+          junit(
+        allowEmptyResults: true,
+        testResults: '*/test-reports/.xml'
+      )
+      }
+   } 
 }
