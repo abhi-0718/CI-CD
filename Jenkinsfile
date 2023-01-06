@@ -6,7 +6,6 @@ pipeline {
         maven "Maven"
         git "Git"
         jdk "Jdk"
-	//sonarqubescanner "SonarQubeScanner"
     }
 
     stages {
@@ -39,17 +38,11 @@ pipeline {
 
 		stage('Quality Gate Check'){
 			steps{
-				script{
-					timeout(time: 1, unit: 'MINUTES') {
+				timeout(time: 1, unit: 'HOURS') {
                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
                     // true = set pipeline to UNSTABLE, false = don't
-						def qg = waitForQualityGate()
-							if (qg.status != 'OK') {
-								error "Pipeline aborted due to quality gate failure: ${qg.status}"
-							}
-                    //waitForQualityGate abortPipeline: true
-                	}
-				}
+                    waitForQualityGate abortPipeline: true
+                }
 			}
 		}
 	}
