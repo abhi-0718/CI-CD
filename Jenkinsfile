@@ -13,7 +13,9 @@ pipeline {
         }
         stage('Build') {
             steps {
+                dir("https://github.com/abhi-0718/AWSBasedDeployment/tree/main/my-app/src/main/java/com/mycompany/app"){
                 sh 'mvn -B -DskipTests clean package'
+                }
             }
         }
      }
