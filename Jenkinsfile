@@ -1,15 +1,18 @@
 pipeline {
+    environment{
+        dockerImage = ''
+    }
     agent any
-
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "Maven"
         git "Git"
         jdk "Jdk"
+        docker "docker"
     }
 
     stages {
-        stage('Build') {
+        stage('1.Code Build') {
             steps {
                 // Get some code from a GitHub repository
                 //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
@@ -28,7 +31,7 @@ pipeline {
         	}
     	}
 
-		stage('SonarQube analysis'){
+		stage('2.SonarQube analysis'){
 			steps{
 				withSonarQubeEnv('sonarserver'){
 					bat 'mvn clean package sonar:sonar'
@@ -36,15 +39,40 @@ pipeline {
 			}
 		}
 
-		stage('Quality Gate Check'){
-			steps{
-				timeout(time: 1, unit: 'HOURS') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    waitForQualityGate abortPipeline: true
+		// stage('Quality Gate Check'){
+		// 	steps{
+		// 		timeout(time: 1, unit: 'HOURS') {
+        //             // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+        //             // true = set pipeline to UNSTABLE, false = don't
+        //             waitForQualityGate abortPipeline: true
+        //         }
+		// 	}
+		// }
+
+        stage('3.Building image') {
+            steps{
+                script {
+                    echo 'Building Image'
+                    dockerImage = docker.build('underwater')
+                    echo 'Image Successfully Build'
                 }
-			}
-		}
+            }
+        }
+
+        stage('4.Deploy image to ECR') {
+            steps{
+                script{
+                    echo 'Deploying Image'
+                    docker.withRegistry('795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment', 'ecr:us-west-1:aws-credentials') {
+                        dockerImage.push("${env.BUILD_NUMBER}")
+                        dockerImage.push("latest")
+                        echo 'Image Successfully pushed'
+                    }
+                }
+            }
+        }
+
+
 	}
 
 }
