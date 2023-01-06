@@ -6,6 +6,7 @@ pipeline {
         maven "Maven"
         git "Git"
         jdk "Jdk"
+	sonarqubescanner "SonarQubeScanner"
     }
 
     stages {
