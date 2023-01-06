@@ -23,7 +23,7 @@ pipeline {
                 // failed, record the test results and archive the jar file.
                 success {
                     junit{
-                            allowEmptyResults: true,
+                            
                             testResults: '*/test-reports/.xml'
                 }
             }
