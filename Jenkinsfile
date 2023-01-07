@@ -52,25 +52,25 @@ pipeline {
             steps{
                 script {
                     echo 'Building Image'
-                    bat 'docker build . -t cloudbased-deployment :${BUILD_NUMBER}'
+                    bat 'docker build . -t cloudbased-deployment'
                     echo 'Image Successfully Build'
 		    bat 'docker images'
                 }
             }
         }
 
-//         stage('4.Deploy image to ECR') {
-//             steps{
-//                 script{
-//                     echo 'Deploying Image'
-//                     docker.withRegistry('795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment', 'ecr:us-west-1:aws-credentials') {
-//                         dockerImage.push("${env.BUILD_NUMBER}")
-//                         dockerImage.push("latest")
-//                         echo 'Image Successfully pushed'
-//                     }
-//                 }
-//             }
-//         }
+        stage('4.Deploy image to ECR') {
+            steps{
+                script{
+                    echo 'Deploying Image'
+                    docker.withRegistry('795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment', 'ecr:us-west-1:aws-credentials') {
+                        bat 'cloudbased-deployment.push("${env.BUILD_NUMBER}")'
+                        bat'cloudbased-deployment.push("latest")'
+                        echo 'Image Successfully pushed'
+                    }
+                }
+            }
+        }
 
 
 	}
