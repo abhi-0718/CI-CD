@@ -52,9 +52,9 @@ pipeline {
             steps{
                 script {
                     echo 'Building Image'
-                    bat 'docker build . -t cloudbased-deployment'
+                    // bat 'docker build . -t cloudbased-deployment'
                     echo 'Image Successfully Build'
-		    bat 'docker images'
+// 		    bat 'docker images'
                 }
             }
         }
@@ -69,18 +69,22 @@ pipeline {
 //                         echo 'Image Successfully pushed'
 //                     }
 			
-			
-		            bat 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 795361990663.dkr.ecr.us-east-1.amazonaws.com'
-//                     bat 'aws ecr get-login-password --region %AWS_DEFAULT_REGION% | docker login --username AWS --password-stdin "%AWS_ACCOUNT_ID%.dkr.ecr.%AWS_DEFAULT_REGION%.amazonaws.com"'
+                    // bat 'aws configure'
+                    bat 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/w5g9n1i7'
+                    
+		            //bat 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 795361990663.dkr.ecr.us-east-1.amazonaws.com'
+                    // bat 'aws ecr get-login-password --region %AWS_DEFAULT_REGION% | docker login --username AWS --password-stdin "%AWS_ACCOUNT_ID%.dkr.ecr.%AWS_DEFAULT_REGION%.amazonaws.com"'
                     echo 'Login Successfull'
-                    bat 'docker push 795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment:latest'
+                    bat 'docker build -t demo .'
+                    echo 'Pubic one Builded'
+		    bat 'docker images'
+                    // bat 'docker push 795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment:latest'
+                    bat 'docker push public.ecr.aws/w5g9n1i7/demo:latest'
                     echo 'Image pushed successfully'
 		
-                }
+                } 
             }
         }
-
-
 	}
 
 }
