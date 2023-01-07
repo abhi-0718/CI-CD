@@ -52,8 +52,9 @@ pipeline {
             steps{
                 script {
                     echo 'Building Image'
-                    bat 'docker build . -t 795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment'
+                    bat 'docker build . -t cloudbased-deployment'
                     echo 'Image Successfully Build'
+		    bat 'docker images'
                 }
             }
         }
