@@ -1,15 +1,5 @@
-FROM httpd:2.4
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    curl \
-    jq \
-    && rm -r /var/lib/apt/lists/*
-
-COPY ./public-html/ /usr/local/apache2/htdocs/
-
-ADD bootstrap.sh /bootstrap.sh
-
-RUN chmod +x /bootstrap.sh
-
-CMD ["/bootstrap.sh"]
+FROM tomcat 
+WORKDIR webapps 
+COPY target/WebApp.war .
+RUN rm -rf ROOT && mv WebApp.war ROOT.war
+ENTRYPOINT ["sh", "/usr/local/tomcat/bin/startup.sh"]
