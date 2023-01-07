@@ -52,24 +52,24 @@ pipeline {
             steps{
                 script {
                     echo 'Building Image'
-                    dockerImage = docker.build('underwater')
+                    bat 'docker build . -t CBDPoject'
                     echo 'Image Successfully Build'
                 }
             }
         }
 
-        stage('4.Deploy image to ECR') {
-            steps{
-                script{
-                    echo 'Deploying Image'
-                    docker.withRegistry('795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment', 'ecr:us-west-1:aws-credentials') {
-                        dockerImage.push("${env.BUILD_NUMBER}")
-                        dockerImage.push("latest")
-                        echo 'Image Successfully pushed'
-                    }
-                }
-            }
-        }
+//         stage('4.Deploy image to ECR') {
+//             steps{
+//                 script{
+//                     echo 'Deploying Image'
+//                     docker.withRegistry('795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment', 'ecr:us-west-1:aws-credentials') {
+//                         dockerImage.push("${env.BUILD_NUMBER}")
+//                         dockerImage.push("latest")
+//                         echo 'Image Successfully pushed'
+//                     }
+//                 }
+//             }
+//         }
 
 
 	}
