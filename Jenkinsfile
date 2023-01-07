@@ -69,6 +69,7 @@ pipeline {
 //                         echo 'Image Successfully pushed'
 //                     }
 			
+			bat 'aws configure'
 		            bat 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment'
 //                     bat 'aws ecr get-login-password --region %AWS_DEFAULT_REGION% | docker login --username AWS --password-stdin "%AWS_ACCOUNT_ID%.dkr.ecr.%AWS_DEFAULT_REGION%.amazonaws.com"'
                     echo 'Login Successfull'
