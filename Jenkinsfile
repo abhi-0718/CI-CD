@@ -63,11 +63,15 @@ pipeline {
             steps{
                 script{
                     echo 'Deploying Image'
-                    docker.withRegistry('https://795361990663.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-west-1:AWS Credentials') {
-//                         bat 'cloudbased-deployment.push("${env.BUILD_NUMBER}")'
-                        bat'cloudbased-deployment.push("latest")'
-                        echo 'Image Successfully pushed'
-                    }
+//                     docker.withRegistry('https://795361990663.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-west-1:AWS Credentials') {
+// //                         bat 'cloudbased-deployment.push("${env.BUILD_NUMBER}")'
+//                         bat'cloudbased-deployment.push("latest")'
+//                         echo 'Image Successfully pushed'
+//                     }
+		    bat 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 795361990663.dkr.ecr.us-east-1.amazonaws.com'
+			echo 'Login Successfull'
+		    bat 'docker push 795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment:latest'
+			echo 'Image pushed successfully'
                 }
             }
         }
