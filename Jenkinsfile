@@ -52,7 +52,7 @@ pipeline {
             steps{
                 script {
                     echo 'Building Image'
-                    bat 'docker build . -t cloudbased-deployment'
+                    bat 'docker build . -t cloudbased-deployment :${BUILD_NUMBER}'
                     echo 'Image Successfully Build'
 		    bat 'docker images'
                 }
