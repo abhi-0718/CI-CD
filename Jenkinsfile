@@ -68,7 +68,8 @@ pipeline {
 //                         bat'cloudbased-deployment.push("latest")'
 //                         echo 'Image Successfully pushed'
 //                     }
-			bat 'docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) 795361990663.dkr.ecr.us-east-1.amazonaws.com'
+			def pass = 'aws ecr get-login-password --region us-east-1'
+			bat 'docker login -u AWS -p pass 795361990663.dkr.ecr.us-east-1.amazonaws.com'
 // 		    bat 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment'
 // 			bat '(Get-ECRLoginCommand).Password | docker login --username AWS --password-stdin 795361990663.dkr.ecr.us-east-1.amazonaws.com' 
 			echo 'Login Successfull'
