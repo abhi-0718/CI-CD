@@ -63,8 +63,8 @@ pipeline {
             steps{
                 script{
                     echo 'Deploying Image'
-                    docker.withRegistry('795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment', 'ecr:us-west-1:aws-credentials') {
-                        bat 'cloudbased-deployment.push("${env.BUILD_NUMBER}")'
+                    docker.withRegistry('795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment', 'ecr:us-west-1:AWS Credentials') {
+//                         bat 'cloudbased-deployment.push("${env.BUILD_NUMBER}")'
                         bat'cloudbased-deployment.push("latest")'
                         echo 'Image Successfully pushed'
                     }
