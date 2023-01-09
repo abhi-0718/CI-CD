@@ -47,28 +47,29 @@ pipeline {
 			}
 		}
 
-        stage('3.Building Docker image') {
+        stage('3.Building image') {
             steps{
                 script {
                     echo '---------------------------Building Image----------------------------------'
-                    bat 'docker build . -t ci_cd_dev'
+                    bat 'docker build . -t habhi/ci_cd_dev'
                     echo '---------------------------Image Successfully Build---------------------------------'
 		            bat 'docker images'
                 }
             }
         }
-	    
-	stage('4.Deploy image to DockerHub') {
+
+         stage('4.Deploy image to DockerHub') {
             steps{
                 script{
                     echo '-----------------------------Deploying Image----------------------------------------'
                     docker.withRegistry('', 'Docker_ID') {
-                        bat 'docker push habhi/ci_cd'
+                        bat 'docker push habhi/ci_cd_dev'
                         echo '-------------------------Image Successfully pushed--------------------------------'
                     }
                 } 
             }
         }
+
        
 	}
 
