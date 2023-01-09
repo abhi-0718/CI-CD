@@ -47,7 +47,7 @@ pipeline {
 			}
 		}
 
-        stage('Selenium Docker Testing'){
+        stage('Selenium Testing'){
             steps{
                 echo '-----------------------------SELENIUM TESTING COMPLLETED------------------------------'
             }
@@ -58,10 +58,22 @@ pipeline {
             steps{
                 script {
                     echo '---------------------------Building Image----------------------------------'
-                    bat 'docker build . -t ci_cd_qa'
+                    bat 'docker build . -t habhi/ci_cd_qa'
                     echo '---------------------------Image Successfully Build---------------------------------'
 		            bat 'docker images'
                 }
+            }
+        }
+
+        stage('4.Deploy image to DockerHub') {
+            steps{
+                script{
+                    echo '-----------------------------Deploying Image----------------------------------------'
+                    docker.withRegistry('', 'Docker_ID') {
+                        bat 'docker push habhi/ci_cd_qa'
+                        echo '-------------------------Image Successfully pushed--------------------------------'
+                    }
+                } 
             }
         }
 
