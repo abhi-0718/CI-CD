@@ -47,7 +47,7 @@ pipeline {
 			}
 		}
 
-        stage('Selenium Testing'){
+        stage('Selenium Docker Testing'){
             steps{
                 echo '-----------------------------SELENIUM TESTING COMPLLETED------------------------------'
             }
