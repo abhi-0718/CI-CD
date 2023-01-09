@@ -64,7 +64,7 @@ pipeline {
             steps{
                 script{
                     echo 'Deploying Image'
-                    docker.withRegistry('https://795361990663.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-west-1:aws-credentials') {
+                    docker.withRegistry('https://795361990663.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
                         bat 'docker push 795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment:latest'
                         echo 'Image Successfully pushed'
                     }
