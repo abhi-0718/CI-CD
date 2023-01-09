@@ -63,7 +63,7 @@ pipeline {
                 script{
                     echo '-----------------------------Deploying Image----------------------------------------'
                     docker.withRegistry('', 'Docker_ID') {
-                        bat 'docker push ci_cd_dev'
+                        bat 'docker push habhi/ci_cd'
                         echo '-------------------------Image Successfully pushed--------------------------------'
                     }
                 } 
