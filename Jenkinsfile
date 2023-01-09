@@ -57,7 +57,18 @@ pipeline {
                 }
             }
         }
-
+	    
+	stage('4.Deploy image to DockerHub') {
+            steps{
+                script{
+                    echo '-----------------------------Deploying Image----------------------------------------'
+                    docker.withRegistry('', 'Docker_ID') {
+                        bat 'docker push ci_cd_dev'
+                        echo '-------------------------Image Successfully pushed--------------------------------'
+                    }
+                } 
+            }
+        }
        
 	}
 
