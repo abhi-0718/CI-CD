@@ -8,7 +8,7 @@ pipeline {
         maven "Maven"
         git "Git"
         jdk "Jdk"
-	DockerTool 'Docker'
+	dockerTool "Docker"
     }
 
     stages {
