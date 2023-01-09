@@ -19,7 +19,7 @@ pipeline {
                 
                 // To run Maven on a Windows agent, use
 				echo 'Building....'
-                bat "mvn -Dmaven.test.failure.ignore=true clean package"
+                bat "mvn clean package"
             }
 
             post {
