@@ -56,7 +56,7 @@ pipeline {
             steps{
                 script {
                     echo '---------------------------Building Image----------------------------------'
-                    bat 'docker build . -t CI_CD'
+                    bat 'docker build . -t ci_cd_qa'
                     echo '---------------------------Image Successfully Build---------------------------------'
 		            bat 'docker images'
                 }
