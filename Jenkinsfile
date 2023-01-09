@@ -48,7 +48,9 @@ pipeline {
 		}
 
         stage('Selenium Testing'){
-            echo '-----------------------------SELENIUM TESTING COMPLLETED------------------------------'
+            steps{
+                echo '-----------------------------SELENIUM TESTING COMPLLETED------------------------------'
+            }
         }
 
 
