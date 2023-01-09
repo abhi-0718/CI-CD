@@ -47,28 +47,23 @@ pipeline {
 			}
 		}
 
+        stage('Selenium Testing'){
+            echo '-----------------------------SELENIUM TESTING COMPLLETED------------------------------'
+        }
+
+
         stage('3.Building image') {
             steps{
                 script {
                     echo '---------------------------Building Image----------------------------------'
-                    bat 'docker build . -t cloudbased-deployment'
+                    bat 'docker build . -t CI_CD'
                     echo '---------------------------Image Successfully Build---------------------------------'
 		            bat 'docker images'
                 }
             }
         }
 
-        stage('4.Deploy image to ECR') {
-            steps{
-                script{
-                    echo '-----------------------------Deploying Image----------------------------------------'
-                    docker.withRegistry('https://795361990663.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
-                        bat 'docker push 795361990663.dkr.ecr.us-east-1.amazonaws.com/cloudbased-deployment:latest'
-                        echo '-------------------------Image Successfully pushed--------------------------------'
-                    }
-                } 
-            }
-        }
+       
 	}
 
 }
