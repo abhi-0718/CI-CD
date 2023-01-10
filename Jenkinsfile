@@ -35,9 +35,11 @@ pipeline {
                 
                 // bat "mvn clean package"
                 withSonarQubeEnv('sonarserver'){
+			withMaven(maven:'Maven'){
 					bat 'mvn clean package sonar:sonar'
                     echo '---------------Code Build and analysis of code is successfull---------------------'
 				}
+		}
             }
 
             post {
