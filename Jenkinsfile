@@ -95,9 +95,9 @@ pipeline {
                 message "Should we continue?"
                 ok "Yes"
             }
-            when {
-                expression { user == env.BUILD_USER_ID}
-            }
+//             when {
+//                 expression { user == env.BUILD_USER_ID}
+//             }
             steps {
                 echo  "deployment"
             }
