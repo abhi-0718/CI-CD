@@ -96,13 +96,12 @@ pipeline {
                 ok "Yes"
             }
             when {
-                expression { user == 'hardCodeApproverJenkinsId'}
+                expression { user == env.BUILD_USER_ID}
             }
             steps {
                 echo  "deployment"
             }
         }
-
        
 	}
 
