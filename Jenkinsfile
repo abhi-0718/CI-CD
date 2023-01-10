@@ -35,7 +35,9 @@ pipeline {
                 
                 // bat "mvn clean package"
                 withSonarQubeEnv('sonarserver'){
-					bat 'mvn clean package sonar:sonar'
+					bat 'mvn clean sonar:sonar'
+			bat 'mvn package'
+			bat 'mvn clean'
                     echo '---------------Code Build and analysis of code is successfull---------------------'
 				}
             }
