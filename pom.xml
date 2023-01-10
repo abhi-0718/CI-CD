@@ -106,6 +106,5 @@
           </configuration>
       </plugin>
     </plugins>
-    <finalName>WebApp</finalName>
   </build>
 </project>
