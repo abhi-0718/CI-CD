@@ -69,6 +69,14 @@ pipeline {
                 } 
             }
         }
+	  
+	 stage('5.Email-DEV'){
+            steps{
+                script{
+                    emailext body: 'Deploying Project', subject: 'DEPLOYMENT', to: 'abhishek09dubey85@gmail.com'
+                }
+            }
+        }
 
        
 	}
