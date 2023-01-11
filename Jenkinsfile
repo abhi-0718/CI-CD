@@ -22,26 +22,17 @@ pipeline {
                 
                 // bat "mvn clean package"
                 withSonarQubeEnv('sonarserver'){
+			withMaven(maven:'Maven'){
 					bat 'mvn clean package sonar:sonar'
                     echo '---------------Code Build and analysis of code is successfull---------------------'
 				}
+		}
             }
 
-            post {
-                // If Maven was able to run the tests, even if some of the test
-                // failed, record the test results and archive the jar file.
-                success {
-                    echo 'Successfully Build'
-            	}
-        	}
     	}
-
-
 		stage('Quality Gate Check'){
 			steps{
 				timeout(time: 1, unit: 'HOURS') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
                     waitForQualityGate abortPipeline: true
                 }
 			}
@@ -53,7 +44,7 @@ pipeline {
                     echo '---------------------------Building Image----------------------------------'
                     bat 'docker build . -t habhi/ci_cd_dev'
                     echo '---------------------------Image Successfully Build---------------------------------'
-		            bat 'docker images'
+// 		            bat 'docker images'
                 }
             }
         }
@@ -70,13 +61,13 @@ pipeline {
             }
         }
 	  
-	 stage('5.Email-DEV'){
-            steps{
-                script{
-                    emailext body: 'Deploying Project', subject: 'DEPLOYMENT', to: 'abhishek09dubey85@gmail.com'
-                }
-            }
-        }
+// 	 stage('5.Email-DEV'){
+//             steps{
+//                 script{
+//                     emailext body: 'Deploying Project', subject: 'DEPLOYMENT', to: 'abhishek09dubey85@gmail.com'
+//                 }
+//             }
+//         }
 
        
 	}
